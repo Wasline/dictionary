@@ -20,7 +20,7 @@ export default function App() {
             href="https://github.com/Wasline/dictionary"
             className="text-decoration-none"
             target="_blank"
-            
+            rel="noreferrer"
             title="link to github"
           >
             open-sourced
