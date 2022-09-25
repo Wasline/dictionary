@@ -4,32 +4,56 @@ import Results from "./Results";
 
 import "./Form.css";
 
-export default function Form() {
-  let [keyword, setKeyword] = useState(null);
-let [results, setResults] = useState(null);
+export default function Form(props) {
+  let [keyword, setKeyword] = useState(props.defaultKeyword);
+  let [results, setResults] = useState(null);
+  let [loaded, setLoaded] = useState(false);
+
+  function handelResponse(response) {
+    setResults(response.data[0]);
+  }
+
+  function search() {
+    //documenttion: https://dictionaryapi.dev/
+    let apiUrl = `https://api.dictionaryapi.dev/api/v2/entries/en/${keyword}`;
+    axios.get(apiUrl).then(handelResponse);
+  }
+
+  function handelSubmit(event) {
+    event.preventDefault();
+    search();
+  }
 
   function handleKeywordChange(event) {
     setKeyword(event.target.value);
   }
 
-  function handelResponse(response) {
-    console.log(response.data[0]);
-    setResults(response.data[0]);
+  function load(){
+    setLoaded(true);
+    search();
   }
 
-  function search(event) {
-    event.preventDefault();
-
-//documenttion: https://dictionaryapi.dev/
-    let apiUrl = `https://api.dictionaryapi.dev/api/v2/entries/en/${keyword}`;
-    axios.get(apiUrl).then(handelResponse);
+  if (loaded) {
+    return (
+      <div className="Form">
+        <section>
+          <form onSubmit={handelSubmit}>
+            <input
+              type="search"
+              onChange={handleKeywordChange}
+              autoFocus="on"
+              defaultValue={props.defaultKeyword}
+            />
+            <button type="submit" className="btn btn-outline-dark btn-sm">
+              Submit
+            </button>
+          </form>
+        </section>
+        <Results results={results} />
+      </div>
+    );
+  } else {
+    load();
+    return "Loading";
   }
-  return (
-    <div className="Form">
-      <form onSubmit={search}>
-        <input type="search" onChange={handleKeywordChange} autoFocus="on" />
-      </form>
-      <Results results={results} />
-    </div>
-  );
 }

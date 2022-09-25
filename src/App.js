@@ -1,19 +1,19 @@
-import logo from "./choose.jpg";
+import React, {useState} from "react";
 import Form from "./Form";
+
 import "./App.css";
 
 export default function App() {
   return (
     <div className="App">
       <div className="container">
-        <header className="App-header">
-          <img src={logo} className="App-logo img-fluid" alt="logo" />
+        <header className="header">
           <h1>DICTIONARY</h1>
-          <p>You just have to ask, I'll execute.</p>
+          <h6><em>You just have to ask, I'll execute.</em></h6>
         </header>
         <main>
-          <Form />
-        </main>
+          <Form defaultKeyword="basketball" />
+          </main>
         <footer className="text-center">
           Coded by Wasline Saint fleur and it's{" "}
           <a

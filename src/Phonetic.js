@@ -19,9 +19,10 @@ export default function Phonetic(props) {
               className="Phonetic-audio-icon"
               src={audio}
               alt="Phonetic audio icon"
+              title="Headphone icon"
               onClick={playAudio}
             />
-            <span>{props.phonetic.text}</span>
+            <span className="text">{props.phonetic.text}</span>
           </li>
         </ul>
       </div>

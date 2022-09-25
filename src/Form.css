@@ -1,4 +1,29 @@
 .Form {
-     display: block;
+  display: block;
   margin:0 auto;
+  font-family: monospace;
+}
+
+.Form section {
+  background: #e3f6f5; 
+  padding: 20px;
+  border-radius: 16px;
+  margin: 20px 0;
+  box-shadow: 0 10px 20px rgb(0 0 0 /10%);
+}
+
+.btn{
+  margin-left: 20px; 
+}
+
+form{
+  text-align: center;
+}
+
+input{
+  width:20%;
+  padding: 4px 6px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  color: #333;
 }
