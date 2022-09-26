@@ -6,10 +6,10 @@
 
 .Form section {
   background: #e3f6f5; 
-  padding: 20px;
+  padding: 24px;
   border-radius: 16px;
   margin: 20px 0;
-  box-shadow: 0 10px 20px rgb(0 0 0 /10%);
+  box-shadow: 0 10px 20px rgba(0 0 0 /10%);
 }
 
 .btn{

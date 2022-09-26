@@ -1,22 +1,34 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Results from "./Results";
+import Photos from "./Photos";
 
 import "./Form.css";
 
 export default function Form(props) {
-  let [keyword, setKeyword] = useState(props.defaultKeyword);
-  let [results, setResults] = useState(null);
-  let [loaded, setLoaded] = useState(false);
+  const [keyword, setKeyword] = useState(props.defaultKeyword);
+  const [results, setResults] = useState(null);
+  const [loaded, setLoaded] = useState(false);
+  const [photos, setPhotos] = useState(null);
 
-  function handelResponse(response) {
+  function handleResponse(response) {
     setResults(response.data[0]);
+    //documentation: https://www.pexels.com/api/documentation/#photos-search/
+    let apiUrl = `https://api.pexels.com/v1/search?query=${response.data[0].word}&per_page=6`;
+    let apiKey = "563492ad6f91700001000001695ece32341743ff9722852c4efb08a4";
+    axios
+      .get(apiUrl, { headers: { Authorization: `Bearer ${apiKey}` } })
+      .then(handlePictures);
+  }
+
+  function handlePictures(response) {
+    setPhotos(response.data.photos);
   }
 
   function search() {
-    //documenttion: https://dictionaryapi.dev/
+    //documentation: https://dictionaryapi.dev/
     let apiUrl = `https://api.dictionaryapi.dev/api/v2/entries/en/${keyword}`;
-    axios.get(apiUrl).then(handelResponse);
+    axios.get(apiUrl).then(handleResponse);
   }
 
   function handelSubmit(event) {
@@ -28,7 +40,7 @@ export default function Form(props) {
     setKeyword(event.target.value);
   }
 
-  function load(){
+  function load() {
     setLoaded(true);
     search();
   }
@@ -50,6 +62,7 @@ export default function Form(props) {
           </form>
         </section>
         <Results results={results} />
+        <Photos photos={photos} />
       </div>
     );
   } else {
